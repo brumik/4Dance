@@ -1,14 +1,17 @@
 {
   "expo": {
-    "name": "SwapDancer",
-    "slug": "SwapDancer",
+    "name": "4Dance",
+    "slug": "4Dance",
+    "privacy": "public",
+    "description": "A companion app for dance schools!",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "primaryColor": "#FABE59",
+    "icon": "./assets/iconNotAdaptive.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FABE59"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -19,8 +22,19 @@
     "ios": {
       "supportsTablet": true
     },
+    "android": {
+      "package": "me.berky.forDance",
+      "versionCode": 1,
+      "permissions": [],
+      "icon": "./assets/iconNotAdaptive.png",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#FABE59"
+      },
+      "useNextNotificationsApi": true
+    },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/iconNotAdaptive.png"
     }
   }
 }

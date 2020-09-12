@@ -1,0 +1,57 @@
+{
+    "swapin": {
+        "title": "Swoop in and help a class!",
+        "noMoreSpaces": "No more free spaces right now.",
+        "comeBack": "Check back later!",
+        "takeIt": "Taking it!",
+        "from": "from",
+        "leader": "leader",
+        "follower": "follower"
+    },
+    "myAcceptedOffers": {
+        "empty": "You have no accepted offers for upcoming classes.",
+        "cancelOffer": "Cancel"
+    },
+    "swapout": {
+        "title": "I wont be able to go:",
+        "selectClass": "Select the class",
+        "selectDefault": "Select one",
+        "selectDate": "Select the date",
+        "label": "Select a date",
+        "notes": "Any notes?",
+        "notesPlaceholder": "If appliable send recap here: xxx@sw.cz",
+        "submit": "Submit",
+        "skippedClasses": "What I am skipping",
+        "createOffer": "New Offer",
+        "cancel": "Cancel"
+    },
+    "myoffers": {
+        "delete": "Delete",
+        "taken": "Taken"
+    },
+    "moment": {
+        "today": "Today",
+        "tomorrow": "Tomorrow"
+    },
+    "datePicker": {
+        "button": "Pick a date"
+    },
+    "auth": {
+        "selectSchool": "Select school!",
+        "username": "Email or Username",
+        "password": "Password",
+        "login": "Log in",
+        "logout": "Log out",
+        "loggingIn": "Logging In..."
+    },
+    "nav": {
+        "settings": "Settings",
+        "user": "User",
+        "myclasses": "My Classes",
+        "swapIn": "Free spaces",
+        "swapOut": "Offer my place",
+        "myAcceptedOffers": "My Accepted Offers",
+        "swap": "Offers",
+        "offerDetails": "Offer details"
+    }
+}
