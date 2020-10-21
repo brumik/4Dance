@@ -1,0 +1,4 @@
+{
+    "branches": ["master", "next"],
+    "plugins": [ "semantic-release-expo" ]
+}
