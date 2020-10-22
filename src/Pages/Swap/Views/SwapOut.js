@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, RefreshControl, View, StyleSheet } from 'react-native';
 import { Card, Input, Button } from 'react-native-elements';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 import Picker from '../../../Components/Picker';
-import DatePicker from '../../../Components/DatePicker';
 import { trans } from '../../../Local';
 import API from '../../../API';
 import MySkippedClasses from '../Components/MySkippedClasses';
@@ -26,19 +24,24 @@ const styles = StyleSheet.create({
 const SwapOut = () => {
   const [ refreshing, setRefreshing ] = useState(false);
   const [ classes, setClasses ] = useState([]);
-  const [ registrationId, setregistrationId ] = useState(0);
+  const [ registrationId, setRegistrationId ] = useState(0);
   const [ isSubmitting, setIsSubmitting ] = useState(false);
   const [ note, setNote ] = useState('');
   const [ dances, setDances ] = useState([]);
-  const [ date, setDate ] = useState(new Date());
+  const [ date, setDate ] = useState('');
   const [ isFormOpen, setIsFormOpen ] = useState(false);
   const user = useSelector(state => state.auth.user);
 
   const closeForm = () => {
-    setregistrationId(0);
+    setRegistrationId(0);
     setNote('');
-    setDate(new Date());
+    setDate('');
     setIsFormOpen(false);
+  };
+
+  const getLessonDates = () => {
+    const dance = dances.find(el => el.registration_id === registrationId);
+    return dance ? dance.course.lesson_dates : [];
   };
 
   const updateClasses = () =>
@@ -61,10 +64,7 @@ const SwapOut = () => {
     API.getRegistrations(user.id)
     .then(response => response.json())
     .then(json => {
-      setDances(json.map(i => ({
-        label: `${i.course.title} - ${i.course.sub_header}`,
-        value: i.registration_id
-      })));
+      setDances(json);
     })
     .catch(e => console.error(e));
   }, []);
@@ -75,7 +75,7 @@ const SwapOut = () => {
     API.createOffer(
       registrationId,
       user.id,
-      moment(date).format('YYYY-MM-D'),
+      date,
       note
     )
     .then(() => {
@@ -103,19 +103,33 @@ const SwapOut = () => {
           <Card.Title>{ trans('swapout.title') }</Card.Title>
           <Picker
             selectedValue={ registrationId }
-            onValueChange={ setregistrationId }
+            onValueChange={ setRegistrationId }
             label={ trans('swapout.selectClass') }
-            items={ dances }
+            items={ dances.map(i => ({
+              label: `${i.course.title} - ${i.course.sub_header}`,
+              value: i.registration_id
+            })) }
             defaultItem={ {
               label: trans('swapout.selectDefault'),
               value: 0
             } }
           />
-          <DatePicker
-            label={ trans('swapout.selectDate') }
-            date={ date }
-            setDate={ setDate }
-          />
+          { registrationId !== 0 &&
+            <Picker
+              selectedValue={ date }
+              onValueChange={ setDate }
+              label={ trans('swapout.selectDate') }
+              items={ getLessonDates().map(i => ({
+                label: i,
+                value: i
+              })) }
+              defaultItem={ {
+                label: trans('swapout.selectDate'),
+                value: ''
+              } }
+              disabled={ registrationId === 0 }
+            />
+          }
           <Input
             label={ trans('swapout.notes') }
             placeholder={ trans('swapout.notesPlaceholder') }
@@ -127,6 +141,7 @@ const SwapOut = () => {
               title={ trans('swapout.submit') }
               loading={ isSubmitting }
               onPress={ onSubmit }
+              disabled={ !getLessonDates().includes(date) }
             />
             <Button containerStyle={ styles.rowChildren }
               type='outline'
